@@ -8,6 +8,12 @@ export async function createSongAndReturn() {
     return id 
 }
 
+export async function updateSongForTest(){
+    await connection.query(`UPDATE recommendations SET score = 3 WHERE id = 1`);
+    await connection.query(`UPDATE recommendations SET score = 9 WHERE id = 2`);
+    await connection.query(`UPDATE recommendations SET score = 27 WHERE id = 3`);
+};
+
 export function bodyCreateSong(){
     return {
         name: faker.random.word(),
