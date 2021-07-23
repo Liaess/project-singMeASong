@@ -69,3 +69,16 @@ describe("POST recomendations/:id/downvote", ()=>{
     expect(response.status).toEqual(401);
   });
 });
+
+describe("GET racomendations/random", ()=>{
+  it("should answer with status 404 when not find a song", async ()=>{
+    const response = await supertest(app).get("/recommendations/random");
+    expect(response.status).toEqual(404);
+  });
+  it("should answer with status 200 when sucessfully get a random song", async ()=>{
+    const body = bodyCreateSong();
+    await supertest(app).post("/recommendations").send(body);
+    const response = await supertest(app).get("/recommendations/random");
+    expect(response.status).toEqual(200);
+  });
+});

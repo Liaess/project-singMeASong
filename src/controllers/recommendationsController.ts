@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { postSongSchema, IdSchema } from "../schemas/recommendationSchemas";
 import { checkYoutubeLink, createSong, findSong, increaseFunction, decreaseFunction } from "../repositories/recommendationsRepository";
-import { selectRandomSongFeature } from "../services/recommendationsServices";
+import { selectRandomSongRepository } from "../services/recommendationsServices";
 
 export async function addSong(req: Request, res: Response) {
     const { name, youtubeLink } = req.body
@@ -43,5 +43,12 @@ export async function handleScore(req: Request, res: Response) {
 }
 
 export async function getRandomSong(req: Request, res: Response) {
-    const song = await selectRandomSongFeature()
+    try{
+        const song = await selectRandomSongRepository();
+        if(song === null) return res.sendStatus(404);
+        res.send(song);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500)
+    }
 }

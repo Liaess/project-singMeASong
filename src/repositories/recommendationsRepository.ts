@@ -30,5 +30,5 @@ export async function decreaseFunction(id:number) {
 
 export async function getAll() {
     const getEveryThing = await connection.query(`SELECT * FROM recommendations`);
-    
+    return getEveryThing.rows
 }
