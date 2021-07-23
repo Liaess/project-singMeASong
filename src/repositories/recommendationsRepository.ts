@@ -32,3 +32,8 @@ export async function getAll() {
     const getEveryThing = await connection.query(`SELECT * FROM recommendations`);
     return getEveryThing.rows
 }
+
+export async function getSearchedAmount(amount:number) {
+    const getEveryThing = await connection.query(`SELECT * FROM recommendations ORDER by score DESC LIMIT $1`, [amount]);
+    return getEveryThing.rows
+}

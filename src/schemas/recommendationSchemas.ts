@@ -5,6 +5,10 @@ export const postSongSchema = joi.object({
     youtubeLink: joi.string().uri().required()
 });
 
-export const IdSchema = joi.object({
+export const idSchema = joi.object({
     id: joi.number().positive().integer().required()
+})
+
+export const amountSchema = joi.object({
+    amount: joi.number().positive().integer().required()
 })

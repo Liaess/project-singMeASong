@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { postSongSchema, IdSchema } from "../schemas/recommendationSchemas";
-import { checkYoutubeLink, createSong, findSong, increaseFunction, decreaseFunction } from "../repositories/recommendationsRepository";
+import { postSongSchema, idSchema, amountSchema } from "../schemas/recommendationSchemas";
+import { checkYoutubeLink, createSong, findSong, increaseFunction, decreaseFunction, getSearchedAmount } from "../repositories/recommendationsRepository";
 import { selectRandomSongRepository } from "../services/recommendationsServices";
 
 export async function addSong(req: Request, res: Response) {
@@ -20,7 +20,7 @@ export async function addSong(req: Request, res: Response) {
 
 export async function handleScore(req: Request, res: Response) {
     const id:number = parseInt(req.params.id);
-    const value = IdSchema.validate({id: id});
+    const value = idSchema.validate({id: id});
     if(value.error) return res.sendStatus(400);
     try{
         const songFound = await findSong(id);
@@ -51,4 +51,11 @@ export async function getRandomSong(req: Request, res: Response) {
         console.log(e);
         res.sendStatus(500)
     }
+}
+
+export async function searchAmount(req: Request, res: Response) {
+    const amount:number = parseInt(req.params.amount);
+    const value = amountSchema.validate({amount: amount});
+    if(value.error) return res.sendStatus(400);
+    res.send(await getSearchedAmount(amount));
 }
