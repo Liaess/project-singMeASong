@@ -1,7 +1,7 @@
 import "../../src/setup";
 import supertest from "supertest";
 import app from "../../src/app";
-import { bodyCreateSong, bodyWithoutLink } from "../factories/bodyFactory";
+import { bodyCreateSong, bodyWithoutLink, bodyWithoutName } from "../factories/bodyFactory";
 import { clearDatabase, endConnection } from "../utils/databaseUtils";
 
 
@@ -27,8 +27,14 @@ describe("POST recommendations", () => {
     expect(response.status).toEqual(409);
   });
 
-  it("should answer with status 400 for invalid name", async () => {
+  it("should answer with status 400 for invalid link", async () => {
     const body = bodyWithoutLink();
+    const response = await supertest(app).post("/recommendations").send(body);
+    expect(response.status).toEqual(400);
+  });
+
+  it("should answer with status 400 for invalid name", async () => {
+    const body = bodyWithoutName();
     const response = await supertest(app).post("/recommendations").send(body);
     expect(response.status).toEqual(400);
   });

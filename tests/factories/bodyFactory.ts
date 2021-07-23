@@ -12,3 +12,9 @@ export function bodyWithoutLink(){
         name: faker.random.word(),
     }
 }
+
+export function bodyWithoutName(){
+    return {
+        youtubeLink: faker.internet.url()
+    }
+}
