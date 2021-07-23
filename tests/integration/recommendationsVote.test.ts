@@ -2,8 +2,8 @@ import "../../src/setup";
 import supertest from "supertest";
 import app from "../../src/app";
 import connection from "../../src/database";
-import { bodyCreateSong, createSongAndReturn } from "../factories/bodyFactory";
-import { clearDatabase, endConnection } from "../utils/databaseUtils";
+import { bodyCreateSong } from "../factories/bodyFactory";
+import { clearDatabase, endConnection, createSongAndReturn } from "../utils/databaseUtils";
 
 beforeEach(async ()=>{
     await clearDatabase();
