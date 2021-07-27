@@ -7,12 +7,17 @@ interface Recommendations {
     score: number;
 }
 
+interface SongBody {
+    name: string;
+    youtubeLink: string;
+}
+
 export async function checkYoutubeLink(youtubeLink:string): Promise<Recommendations[]> {
     const check = await connection.query(`SELECT * FROM recommendations WHERE "youtubeLink" = $1`, [youtubeLink]);
     return check.rows;
 }
 
-export async function createSong(name:string, youtubeLink: string) {
+export async function createSong(name:string, youtubeLink: string): Promise<SongBody> {
     await connection.query(`INSERT INTO recommendations (name, "youtubeLink") VALUES ($1, $2)`, [name, youtubeLink]);
     return;
 }
