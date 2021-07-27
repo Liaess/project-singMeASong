@@ -3,8 +3,13 @@ import { postSongSchema, idSchema, amountSchema } from "../schemas/recommendatio
 import { checkYoutubeLink, createSong, findSong, increaseFunction, decreaseFunction, getSearchedAmount } from "../repositories/recommendationsRepository";
 import { selectRandomSongRepository } from "../services/recommendationsServices";
 
+interface SongBody {
+    name: string;
+    youtubeLink: string;
+}
+
 export async function addSong(req: Request, res: Response) {
-    const { name, youtubeLink } = req.body
+    const { name, youtubeLink }: SongBody = req.body
     const value = postSongSchema.validate({name: name, youtubeLink: youtubeLink});
     if(value.error) return res.sendStatus(400);
     try{
